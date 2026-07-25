@@ -1,47 +1,35 @@
-# AITOS-v1
+# AITOS-v1 (Version 2.0)
 
-هذا المستودع يحتوي على مشروع AITOS-v1، وهو نظام تداول آلي متقدم.
+AITOS is a layered, event-driven processing pipeline for advanced algorithmic trading.
 
-## هيكل المستودع
-
-تمت إعادة تنظيم المستودع ليكون أكثر قابلية للتطوير والإنتاج، مع التركيز على الوضوح والنمطية. فيما يلي نظرة عامة على الهيكل الجديد:
+## Repository Structure (v2.0 Canonical)
 
 ```
 AITOS-v1/
-├── README.md
-├── ROADMAP.md
-├── CHANGELOG.md
-├── LICENSE
-├── docs/                     # الوثائق والمواصفات والبحوث والرسوم البيانية
-│   ├── architecture/         # وثائق التصميم المعماري
-│   ├── specifications/       # مواصفات الوحدات النمطية (Module Specifications)
-│   ├── research/             # وثائق البحث
-│   └── diagrams/             # الرسوم البيانية
-├── configs/                  # ملفات التكوين
-├── datasets/                 # مجموعات البيانات
-├── models/                   # نماذج التعلم الآلي
-├── src/                      # الكود المصدري (Python Implementation)
-├── tests/                    # اختبارات الوحدات والتكامل
-└── notebooks/                # دفاتر Jupyter للمسودة والتحليل
+├── 00_Architecture/          # Master Architecture & Core Rules
+├── 01_Modules/               # Approved Module Specifications
+│   ├── AITOS-MEF-07/
+│   ├── AITOS-MICRO-08/
+│   ├── AITOS-EXOTC-09/
+│   ├── AITOS-SESSION-10/
+│   ├── AITOS-MSTRUCT-11/
+│   ├── AITOS-CTA-12/
+│   ├── AITOS-WYCKOFF-13/
+│   └── AITOS-SMC/
+├── 02_Datasets/              # Market Data & Training Sets
+├── 03_Research/              # Scientific Research & Algorithm Definitions
+├── 04_Tests/                 # Unit & Integration Tests
+├── 05_Implementation/        # Python Source Code
+└── README.md
 ```
 
-## الوثائق
+## Current Status
+The project is currently in the **Architecture Freeze (v2.0)** phase. All architectural designs are synchronized and approved. The next focus is the implementation of the **AITOS-SMC** module.
 
-يحتوي مجلد `docs/` على جميع الوثائق المتعلقة بالمشروع، بما في ذلك:
+## Core Documents
+- [Master Architecture](./00_Architecture/AITOS_Master_Architecture.md)
+- [Module Index](./00_Architecture/MODULE_INDEX.md)
+- [Development Roadmap](./00_Architecture/DEVELOPMENT_ROADMAP.md)
 
-*   **architecture/:** وثائق التصميم المعماري العام للنظام.
-*   **specifications/:** مواصفات مفصلة لكل وحدة نمطية في النظام، مثل `AITOS-DataEngine-01.md`.
-*   **research/:** وثائق البحث والملاحظات المتعلقة بالمكونات المختلفة.
-*   **diagrams/:** الرسوم البيانية التي توضح تدفقات العمل وهيكل النظام.
-
-## المراحل الحالية
-
-المستودع حاليًا في مرحلة **تصميم المعمارية** و **تحديد مواصفات الوحدات النمطية**. لم يتم البدء في تنفيذ الكود بعد.
-
-## المساهمة
-
-نرحب بالمساهمات! يرجى مراجعة `ROADMAP.md` و `CONTRIBUTING.md` (سيتم إضافته لاحقًا) للحصول على إرشادات.
-
-## الترخيص
-
-هذا المشروع مرخص بموجب ترخيص [LICENSE](LICENSE).
+## License
+This project is licensed under the [LICENSE](LICENSE).

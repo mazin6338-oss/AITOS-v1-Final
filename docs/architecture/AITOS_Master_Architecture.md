@@ -1,0 +1,116 @@
+---
+Architecture Version: 2.0
+Release: Canonical v2
+Status: Approved
+Last Updated: 2026-07-25
+---
+
+# AITOS v2 Master Architecture
+
+## 2.1 Architecture Overview
+
+AITOS is structured as a layered, event‑driven processing pipeline. Market data flows through a sequence of analysis modules that progressively enrich raw price and volume information into higher‑level market context, alpha signals, risk assessments, and portfolio decisions. A supervisory AI layer can override decisions before execution. The entire system is observed by a dedicated monitoring engine, and a separate learning engine continuously updates the parameters of trainable modules.
+
+## 2.2 Layer Description
+
+*   **Market Data Ingestion:** Raw tick and bar data enter the system via the Microstructure Engine (AITOS-MICRO-08).
+*   **Venue & Session Awareness:** Venue management and session calendars provide the context in which all subsequent analysis operates.
+*   **Foundational Market Analysis:** Efficiency evaluation, market structure classification, classical technical patterns, and Wyckoff schematics build a multi‑faceted picture of the current market.
+*   **Smart Money Concepts (SMC):** A dedicated layer that fuses institutional order flow analysis, liquidity sweeps, and smart‑money heuristics.
+*   **Context Aggregation:** The Context Engine fuses outputs from all analysis modules into a unified market view, serving as the single source of truth for downstream decision engines.
+*   **Decision & Risk:** Alpha generation, risk management, and portfolio construction consume the unified context.
+*   **AI Supervisor:** The AI decision engine can override any decision based on higher‑level reasoning or ethical/regulatory constraints.
+*   **Execution:** The Execution Engine translates final, approved orders into venue‑specific instructions.
+*   **Observability:** The Monitoring Engine collects metrics, health, and alerts from all modules.
+*   **Continuous Learning:** The Learning Engine uses monitoring data to improve models across the system.
+
+## 2.3 Data Flow Diagram
+
+```
+┌──────────────────────┐
+│   Market Data Feeds  │
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-MICRO-08      │ Market Microstructure
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-EXOTC-09      │ Venue Management
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-SESSION-10    │ Trading Sessions
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-MEF-07        │ Efficiency & Validation
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-MSTRUCT-11    │ Market Structure
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-CTA-12        │ Classical TA
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-WYCKOFF-13    │ Wyckoff Method
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-SMC           │ Smart Money Concepts
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-CONTEXT       │ Market Context Aggregation
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-ALPHA         │ Alpha Decision
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-RISK          │ Risk Management
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-PORT          │ Portfolio Construction
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-AI            │ AI Supervisory Override
+└──────────┬───────────┘
+           │
+┌──────────▼───────────┐
+│  AITOS-EXEC          │ Execution Engine
+└──────────┬───────────┘
+           │
+    ┌──────▼──────┐
+    │ Order Gateways │
+    └──────┬──────┘
+           │
+    ┌──────▼──────┐
+    │ Exchanges/OTC │
+    └─────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                      AITOS-MONITOR                         │
+│                (Observability, Health, Alerts)             │
+└─────────────────────────────────────────────────────────────┘
+            ▲                              ▲
+            │                              │
+┌───────────▼─────────────┐  ┌─────────────▼──────────────┐
+│     AITOS-LEARN         │◄─┤   All Trainable Modules    │
+│   (Online & Batch)      │  └────────────────────────────┘
+└─────────────────────────┘
+```
+
+## 2.4 Key Architectural Principles
+
+*   **Unidirectional data flow:** All trading decisions flow from left to right; no module may directly write to an upstream module’s state.
+*   **Interface contracts:** Each module exposes a well‑defined set of outputs and subscribes only to specified inputs.
+*   **Monitoring as a cross‑cutting concern:** Every module emits health metrics and events to the Monitoring Engine.
+*   **Learning out‑of‑band:** Model updates are pushed from LEARN to target modules asynchronously, never during a trading decision.
+*   **AI override:** The AI module can intercept and modify decisions generated by ALPHA, RISK, or PORT, but only through a controlled “override” interface that logs every change.

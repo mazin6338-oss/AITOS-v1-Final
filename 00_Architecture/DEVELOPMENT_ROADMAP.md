@@ -46,5 +46,9 @@ The roadmap follows strict dependency order so that each phase can be built and 
 *   AITOS-LEARN
 
 ## Phase 8 – AI Supervisory Layer
+
+## Phase 9 – Self-Evolution Layer (AITOS Dev Agent)
+**Goal:** Build the development agent that manages the repository and documentation.
+*   AITOS-DEV-AGENT
 **Goal:** Integrate a high‑level AI decision maker that can override automated decisions based on holistic reasoning.
 *   AITOS-AI

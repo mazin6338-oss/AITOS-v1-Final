@@ -25,3 +25,4 @@ Last Updated: 2026-07-25
 | 14 | AITOS-MONITOR | Monitoring & Health Engine | 1.0 | Specification Pending | All modules | All modules | AITOS-LEARN, AITOS-AI, alerts | In Design |
 | 15 | AITOS-LEARN | Learning Engine | 1.0 | Specification Pending | AITOS-MONITOR, all trainable modules | AITOS-MONITOR, all trainable modules | Updated model parameters to respective modules | In Design |
 | 16 | AITOS-AI | AI Decision & Reasoning Engine | 1.0 | Specification Pending | AITOS-CONTEXT, AITOS-ALPHA, AITOS-RISK, AITOS-PORT, AITOS-MONITOR | AITOS-CONTEXT, AITOS-ALPHA, AITOS-RISK, AITOS-PORT, AITOS-MONITOR | AITOS-EXEC-14 (override), AITOS-PORT (override) | In Design |
+| 17 | AITOS-DEV-AGENT | AITOS Development Agent | 1.0 | Proposed | All modules | User commands, GitHub Events | Repository updates, PRs, Docs | In Design |

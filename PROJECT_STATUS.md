@@ -23,3 +23,4 @@
 
 ## ملخص المرحلة الحالية
 المشروع حالياً في حالة **Architecture Freeze (v2.0)**. تم الانتهاء من تصميم ومواصفات الوحدات الأساسية (01-07)، والتركيز القادم ينصب على تصميم وتنفيذ وحدة **AITOS-SMC**.
+| AITOS-DEV-AGENT | AITOS Development Agent | Proposed | In Design |

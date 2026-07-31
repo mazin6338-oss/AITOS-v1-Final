@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MarketData Interface Contract",
+  "description": "Defines the canonical structure for market data events and entities exchanged between AITOS modules.",
+  "type": "object",
+  "version": "1.0.0",
+  "compatibility": "backward-compatible",
+  "error_behavior": "reject-on-validation-failure",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "description": "Type of market data event (e.g., CandleClosed, TickReceived).",
+      "enum": ["CandleClosed", "TickReceived", "OrderBookUpdate"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the event."
+    },
+    "instrument_id": {
+      "type": "string",
+      "description": "Unique identifier for the trading instrument (e.g., 'EURUSD', 'BTCUSD')."
+    },
+    "data": {
+      "type": "object",
+      "description": "Payload containing the specific market data entity.",
+      "oneOf": [
+        { "$ref": "#/definitions/Candle" },
+        { "$ref": "#/definitions/Tick" },
+        { "$ref": "#/definitions/OrderBook" }
+      ]
+    }
+  },
+  "required": ["event_type", "timestamp", "instrument_id", "data"],
+  "definitions": {
+    "Candle": {
+      "type": "object",
+      "description": "Represents an aggregated price candle.",
+      "properties": {
+        "interval": { "type": "string", "description": "Timeframe of the candle (e.g., '1m', '5m', '1h', '1d')." },
+        "open": { "type": "number", "minimum": 0, "description": "Opening price." },
+        "high": { "type": "number", "minimum": 0, "description": "Highest price." },
+        "low": { "type": "number", "minimum": 0, "description": "Lowest price." },
+        "close": { "type": "number", "minimum": 0, "description": "Closing price." },
+        "volume": { "type": "number", "minimum": 0, "description": "Trading volume." },
+        "vwap": { "type": "number", "minimum": 0, "description": "Volume Weighted Average Price." }
+      },
+      "required": ["interval", "open", "high", "low", "close", "volume"]
+    },
+    "Tick": {
+      "type": "object",
+      "description": "Represents a single market tick (trade or quote).",
+      "properties": {
+        "price": { "type": "number", "minimum": 0, "description": "Price of the tick." },
+        "size": { "type": "number", "minimum": 0, "description": "Size of the tick." },
+        "exchange_id": { "type": "string", "description": "Exchange where the tick originated." },
+        "bid_price": { "type": "number", "minimum": 0 },
+        "ask_price": { "type": "number", "minimum": 0 },
+        "bid_size": { "type": "number", "minimum": 0 },
+        "ask_size": { "type": "number", "minimum": 0 }
+      },
+      "required": ["price", "size"]
+    },
+    "OrderBook": {
+      "type": "object",
+      "description": "Represents a snapshot of the order book.",
+      "properties": {
+        "bids": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/OrderBookLevel" }
+        },
+        "asks": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/OrderBookLevel" }
+        }
+      },
+      "required": ["bids", "asks"]
+    },
+    "OrderBookLevel": {
+      "type": "array",
+      "description": "[price, size] for an order book level.",
+      "items": [{ "type": "number", "minimum": 0 }, { "type": "number", "minimum": 0 }],
+      "minItems": 2,
+      "maxItems": 2
+    }
+  }
+}

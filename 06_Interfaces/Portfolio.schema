@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Portfolio Interface Contract",
+  "description": "Defines the canonical structure for portfolio and position data exchanged between AITOS modules.",
+  "type": "object",
+  "version": "1.0.0",
+  "compatibility": "backward-compatible",
+  "error_behavior": "reject-on-validation-failure",
+  "properties": {
+    "portfolio_id": {
+      "type": "string",
+      "description": "Unique identifier for the portfolio."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the portfolio snapshot."
+    },
+    "cash_balance": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Current cash balance in the portfolio.""
+    },
+    "total_equity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total equity of the portfolio (cash + market value of positions)."
+    },
+    "total_pnl": {
+      "type": "number",
+      "description": "Total profit/loss of the portfolio."
+    },
+    "risk_exposure": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Overall risk exposure of the portfolio."
+    },
+    "positions": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Position" },
+      "description": "List of current positions in the portfolio."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional additional metadata related to the portfolio.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["portfolio_id", "timestamp", "cash_balance", "total_equity", "total_pnl", "risk_exposure", "positions"],
+  "definitions": {
+    "Position": {
+      "type": "object",
+      "description": "Represents a single open position.",
+      "properties": {
+        "position_id": {
+          "type": "string",
+          "description": "Unique identifier for the position."
+        },
+        "instrument": {
+          "type": "string",
+          "description": "Trading instrument of the position."
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Quantity of the instrument held."
+        },
+        "average_entry_price": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average entry price of the position."
+        },
+        "current_market_price": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Current market price of the instrument."
+        },
+        "unrealized_pnl": {
+          "type": "number",
+          "description": "Unrealized profit/loss for the position."
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["LONG", "SHORT"],
+          "description": "Direction of the position."
+        }
+      },
+      "required": ["position_id", "instrument", "quantity", "average_entry_price", "current_market_price", "unrealized_pnl", "direction"]
+    }
+  }
+}

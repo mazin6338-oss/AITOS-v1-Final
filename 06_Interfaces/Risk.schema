@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Risk Interface Contract",
+  "description": "Defines the canonical structure for risk parameters and constraints exchanged between AITOS modules.",
+  "type": "object",
+  "version": "1.0.0",
+  "compatibility": "backward-compatible",
+  "error_behavior": "reject-on-validation-failure",
+  "properties": {
+    "risk_profile_id": {
+      "type": "string",
+      "description": "Unique identifier for the risk profile."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the risk profile was last updated."
+    },
+    "portfolio_id": {
+      "type": "string",
+      "description": "ID of the portfolio to which this risk profile applies."
+    },
+    "max_drawdown": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Maximum acceptable drawdown as a percentage (0 to 1)."
+    },
+    "max_daily_loss": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Maximum acceptable daily loss in currency units."
+    },
+    "max_position_size": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Maximum allowed position size for any single instrument."
+    },
+    "value_at_risk": {
+      "type": "object",
+      "description": "Value at Risk (VaR) parameters.",
+      "properties": {
+        "level": { "type": "number", "minimum": 0, "maximum": 1, "description": "Confidence level for VaR (e.g., 0.95)." },
+        "horizon": { "type": "string", "description": "Time horizon for VaR (e.g., 1d, 1w)." },
+        "value": { "type": "number", "minimum": 0, "description": "Calculated VaR in currency units." }
+      },
+      "required": ["level", "horizon", "value"]
+    },
+    "expected_shortfall": {
+      "type": "object",
+      "description": "Expected Shortfall (ES) parameters.",
+      "properties": {
+        "level": { "type": "number", "minimum": 0, "maximum": 1, "description": "Confidence level for ES (e.g., 0.95)." },
+        "horizon": { "type": "string", "description": "Time horizon for ES (e.g., 1d, 1w)." },
+        "value": { "type": "number", "minimum": 0, "description": "Calculated ES in currency units." }
+      },
+      "required": ["level", "horizon", "value"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional additional metadata related to the risk profile.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["risk_profile_id", "timestamp", "portfolio_id", "max_drawdown", "max_daily_loss", "max_position_size"]
+}

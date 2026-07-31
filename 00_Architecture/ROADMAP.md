@@ -31,6 +31,9 @@ This document outlines the official development roadmap for the AITOS v2 project
 | Sprint | Goal | Status | Progress |
 |---|---|---|---|
 | Sprint 0 | Establish Governance Foundation | Implemented | 100% |
+| Sprint 0.1 | Interface & Standards Foundation | Implemented | 100% |
+| Sprint 0.2 | Enhanced Traceability & AI Governance | Implemented | 100% |
+| Sprint 0.3 | Architecture Fitness Validation & Freeze | Implemented | 100% |
 | Sprint 1 | Build Market Analysis Capabilities | Implemented | 100% |
 | Sprint 2 | Create Context & Alpha Engines | Planned | 0% |
 | Sprint 3 | Build Risk Evaluation & Constraints | Planned | 0% |
@@ -48,6 +51,24 @@ This document outlines the official development roadmap for the AITOS v2 project
 **Status:** Implemented
 **Progress:** 100%
 **Key Deliverables:** `PROJECT_PRINCIPLES.md`, `DEVELOPMENT_WORKFLOW.md`, `QUALITY_GATE.md`, `EVIDENCE_MODEL.md`, `TRACEABILITY.md`.
+
+### Sprint 0.1: Interface & Standards Foundation
+**Goal:** Formalize all module interfaces and engineering standards.
+**Status:** Implemented
+**Progress:** 100%
+**Key Deliverables:** `06_Interfaces/*.schema`, `07_Standards/*.md`.
+
+### Sprint 0.2: Enhanced Traceability & AI Governance
+**Goal:** Implement machine-readable traceability and expand AI governance principles.
+**Status:** Implemented
+**Progress:** 100%
+**Key Deliverables:** Updated `TRACEABILITY.md`, updated `AI_ARCHITECTURE.md`.
+
+### Sprint 0.3: Architecture Fitness Validation & Freeze
+**Goal:** Develop mechanisms to ensure continuous architectural adherence and declare Architecture Freeze.
+**Status:** Implemented
+**Progress:** 100%
+**Key Deliverables:** `ARCHITECTURE_FITNESS_VALIDATION.md`.
 
 ### Sprint 1: Market Foundations
 **Goal:** Build all market analysis capabilities necessary to produce a unified market context.

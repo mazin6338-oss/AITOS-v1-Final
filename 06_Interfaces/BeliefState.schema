@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aitos.io/schemas/v2/BeliefState.schema.json",
+  "title": "BeliefState",
+  "description": "Schema for the per-timeframe belief vector emitted by AITOS market structure modules.",
+  "type": "object",
+  "required": ["instrument_id", "timeframe", "timestamp", "belief_vector", "entropy", "regime_label", "confidence"],
+  "properties": {
+    "instrument_id": {
+      "type": "string",
+      "description": "Unique identifier for the trading instrument."
+    },
+    "timeframe": {
+      "type": "string",
+      "enum": ["M15", "H1", "H4", "D", "W", "M"],
+      "description": "The timeframe of the analysis."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the belief state."
+    },
+    "belief_vector": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "minItems": 6,
+      "maxItems": 6,
+      "description": "Probability vector: [UP, DOWN, RANGE, BREAKOUT_UP, BREAKOUT_DOWN, INDETERMINATE]"
+    },
+    "entropy": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Shannon entropy of the belief vector, indicating uncertainty."
+    },
+    "regime_label": {
+      "type": "string",
+      "enum": ["UPTREND", "DOWNTREND", "RANGE", "BREAKOUT_UP", "BREAKOUT_DOWN", "INDETERMINATE"],
+      "description": "The most likely regime label."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Overall confidence score in the regime classification."
+    }
+  },
+  "additionalProperties": false
+}

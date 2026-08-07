@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aitos.io/schemas/v2/KeyLevels.schema.json",
+  "title": "KeyLevels",
+  "description": "Schema for support, resistance, and break of structure levels identified by market structure modules.",
+  "type": "object",
+  "required": ["instrument_id", "timeframe", "support", "resistance", "bos_up", "bos_down"],
+  "properties": {
+    "instrument_id": {
+      "type": "string",
+      "description": "Unique identifier for the trading instrument."
+    },
+    "timeframe": {
+      "type": "string",
+      "enum": ["M15", "H1", "H4", "D", "W", "M"],
+      "description": "The timeframe of the analysis."
+    },
+    "support": {
+      "type": "number",
+      "description": "Identified support level price."
+    },
+    "resistance": {
+      "type": "number",
+      "description": "Identified resistance level price."
+    },
+    "bos_up": {
+      "type": ["number", "null"],
+      "description": "Price level of the latest bullish Break of Structure (BOS)."
+    },
+    "bos_down": {
+      "type": ["number", "null"],
+      "description": "Price level of the latest bearish Break of Structure (BOS)."
+    }
+  },
+  "additionalProperties": false
+}

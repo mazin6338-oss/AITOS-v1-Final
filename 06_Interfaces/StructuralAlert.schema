@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aitos.io/schemas/v2/StructuralAlert.schema.json",
+  "title": "StructuralAlert",
+  "description": "Schema for alerts triggered by significant market structure shifts.",
+  "type": "object",
+  "required": ["alert_type", "instrument_id", "timeframe", "old_regime", "new_regime", "confidence", "reason"],
+  "properties": {
+    "alert_type": {
+      "type": "string",
+      "const": "STRUCTURAL_SHIFT",
+      "description": "Type of structural alert."
+    },
+    "instrument_id": {
+      "type": "string",
+      "description": "Unique identifier for the trading instrument."
+    },
+    "timeframe": {
+      "type": "string",
+      "enum": ["M15", "H1", "H4", "D", "W", "M"],
+      "description": "The timeframe of the analysis."
+    },
+    "old_regime": {
+      "type": "string",
+      "enum": ["UPTREND", "DOWNTREND", "RANGE", "BREAKOUT_UP", "BREAKOUT_DOWN", "INDETERMINATE"],
+      "description": "The regime label prior to the shift."
+    },
+    "new_regime": {
+      "type": "string",
+      "enum": ["UPTREND", "DOWNTREND", "RANGE", "BREAKOUT_UP", "BREAKOUT_DOWN", "INDETERMINATE"],
+      "description": "The new regime label after the shift."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence score in the structural shift detection."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Human-readable explanation for the alert (e.g., 'Break of resistance at 1.1050')."
+    }
+  },
+  "additionalProperties": false
+}
